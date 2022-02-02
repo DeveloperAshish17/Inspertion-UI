@@ -1,7 +1,12 @@
+<!-- Add inspection trigger modal -->
+<button type="button" class="btn btn-primary float-end m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="modelAdd()">
+    Add Inspection
+</button>
+
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-secondary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<button type="button" class="btn btn-secondary float-end m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Show-inspection time
-  </button>
+</button>
 
 <table class=" table table-striped">
     <thead>
@@ -9,6 +14,7 @@
         <th>Inspection</th>
         <th>Status</th>
         <th>Comment</th>
+        <th>Options</th>
     </thead>
     <tbody>
         <tr *ngFor="let item of inspectionList$|async">
@@ -17,9 +23,27 @@
             <!-- <th>{{item.inspectionTypeId}}</th> -->
             <td>{{item.status}}</td>
             <td>{{item.comments}}</td>
+            <td>
+                <button class="btn btn-outline-primary me-3 mb-1"><i class="fas fa-edit"></i></button>
+
+                <button class="btn btn-outline-danger me-3 mb-1"> <i class="fas fa-trash"></i> </button>
+            </td>
         </tr>
     </tbody>
 </table>
+
+<div class="alert alert-success" role="alert" id="add-success-alert">
+    Inspection Successfully Added!
+</div>
+
+<div class="alert alert-success" role="alert" id="update-success-alert">
+    Inspection Successfully Updated!
+</div>
+
+<div class="alert alert-success" role="alert" id="delete-success-alert">
+    Inspection Successfully Deleted!
+</div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -31,6 +55,22 @@
             </div>
             <div class="modal-body">
                 <p *ngFor="let type of inspectionTypeList$|async">{{type.id}} - {{type.inspectionName}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  Add new inspection Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">{{modelTitle}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modelClose()" id="adit-model-close"></button>
+            </div>
+            <div class="modal-body">
+                <app-adit-inspection [inspection]="inspection" *ngIf="activateAditInspectionComponent">
+                </app-adit-inspection>
             </div>
         </div>
     </div>
